@@ -13,7 +13,6 @@ class Product extends Component {
       mensagem: '',
       trigger: false,
       ratings: [],
-      quanty: JSON.parse(localStorage.getItem('carProductList')).length,
     };
   }
 
