@@ -13,6 +13,7 @@ class Product extends Component {
       mensagem: '',
       trigger: false,
       ratings: [],
+      quanty: 0,
     };
   }
 
@@ -22,6 +23,9 @@ class Product extends Component {
       localStorage.setItem('carProductList', JSON.stringify([]));
     }
     this.fetchProductDetails();
+    if (getLocal) {
+      this.setState({ quanty: getLocal.length });
+    }
   }
 
   handleChange = ({ target }) => {
@@ -41,6 +45,10 @@ class Product extends Component {
   fTest = (product) => {
     const getLocal = JSON.parse(localStorage.getItem('carProductList'));
     localStorage.setItem('carProductList', JSON.stringify([...getLocal, product]));
+    const car = JSON.parse(localStorage.getItem('carProductList'));
+    this.setState(() => ({
+      quanty: car.length,
+    }));
   };
 
   fetchProductDetails = async () => {
@@ -56,6 +64,7 @@ class Product extends Component {
   };
 
   render() {
+    const { quanty } = this.state;
     const cinco = 5;
     const {
       product,
@@ -68,6 +77,7 @@ class Product extends Component {
     return (
       <div className="product">
         <Link to="/Carrinho" data-testid="shopping-cart-button"> Carrinho</Link>
+        <p data-testid="shopping-cart-size">{quanty}</p>
         <p data-testid="product-detail-name">{product.title}</p>
         <img src={ product.thumbnail } alt="" data-testid="product-detail-image" />
         <p data-testid="product-detail-price">{product.price}</p>

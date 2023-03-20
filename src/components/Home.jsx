@@ -9,12 +9,12 @@ import './Home.css';
 class Home extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       category: '',
       productsDetails: [],
       search: false,
       carProductList: [],
+      quanty: [],
     };
   }
 
@@ -23,6 +23,7 @@ class Home extends Component {
     if (car) {
       this.setState({
         carProductList: car,
+        quanty: car.length,
       });
     }
   }
@@ -50,6 +51,10 @@ class Home extends Component {
   fSaveOnLocalStorage = () => {
     const { carProductList } = this.state;
     localStorage.setItem('carProductList', JSON.stringify(carProductList));
+    const car = JSON.parse(localStorage.getItem('carProductList'));
+    this.setState(() => ({
+      quanty: car.length,
+    }));
   };
 
   fAddProductToCar = (product) => {
@@ -59,7 +64,7 @@ class Home extends Component {
   };
 
   render() {
-    const { productsDetails, search, category } = this.state;
+    const { productsDetails, search, category, quanty } = this.state;
     return (
       <>
         <div className="header">
@@ -75,6 +80,7 @@ class Home extends Component {
             Carrinho
 
           </Link>
+          <p data-testid="shopping-cart-size">{quanty}</p>
         </div>
 
         <div className="productCateg">
