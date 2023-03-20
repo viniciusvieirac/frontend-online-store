@@ -13,6 +13,7 @@ class Product extends Component {
       mensagem: '',
       trigger: false,
       ratings: [],
+      quanty: 0,
     };
   }
 
@@ -22,6 +23,9 @@ class Product extends Component {
       localStorage.setItem('carProductList', JSON.stringify([]));
     }
     this.fetchProductDetails();
+    if (getLocal) {
+      this.setState({ quanty: getLocal.length });
+    }
   }
 
   handleChange = ({ target }) => {
